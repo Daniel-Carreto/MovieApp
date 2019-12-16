@@ -28,6 +28,10 @@ class LoginResources (context: Context) {
         this.context.get()!!.getString(R.string.login_success)
     }
 
+    val welcomeBack:String by lazy{
+        checkNotNull(this.context)
+        this.context.get()!!.getString(R.string.login_welcome_back)
+    }
 
 
 

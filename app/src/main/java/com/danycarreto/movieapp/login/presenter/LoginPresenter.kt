@@ -1,12 +1,20 @@
 package com.danycarreto.movieapp.login.presenter
 
 import android.util.Patterns
+import com.danycarreto.movieapp.login.data.UserPreferences
 import com.danycarreto.movieapp.login.resources.LoginResources
 
 class LoginPresenter(
     val loginView: LoginContract.LoginView,
-    val loginResources: LoginResources
+    val loginResources: LoginResources,
+    val userPreferences: UserPreferences
 ) : LoginContract.LoginPresenter {
+
+    init {
+        if(userPreferences.isUserLogin()){
+            loginView.onSuccessLogin(loginResources.welcomeBack)
+        }
+    }
 
     override fun login(email: String, password: String) {
         loginView.showLoading()
@@ -26,6 +34,8 @@ class LoginPresenter(
             return
         }
         loginView.hideLoading()
+        userPreferences.setUserLoginSuccess(true)
+        userPreferences.setUserNameSuccess(email)
         loginView.onSuccessLogin(loginResources.successLogin.format(email))
     }
 

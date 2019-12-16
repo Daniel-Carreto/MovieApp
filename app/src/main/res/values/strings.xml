@@ -5,13 +5,14 @@
     <string name="login_input_user_hint">Username</string>
     <string name="login_input_password_hint">Password</string>
     <string name="login_button_label">Login</string>
+    <string name="login_neutral_label">Entendido</string>
 
     <!--LoginPresenter-->
     <string name="login_email_empty">El correo no puede ir vacío</string>
     <string name="login_email_invalid">El correo no es válido</string>
     <string name="login_password_empty">El campo password no puede ir vacío</string>
     <string name="login_success">Bienvenido %s</string>
-
+    <string name="login_welcome_back">Bienvenido de vuelta</string>
 
 
 </resources>
