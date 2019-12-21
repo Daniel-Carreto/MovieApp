@@ -1,12 +1,13 @@
 package com.danycarreto.movieapp.home
 
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.danycarreto.movieapp.R
@@ -18,9 +19,38 @@ import com.danycarreto.movieapp.home.presenter.TopRatedPresenter
 import kotlinx.android.synthetic.main.fragment_top_rated.*
 
 class TopRatedFragment : Fragment(),
-    TopRatedContract.TopRatedView {
+    TopRatedContract.TopRatedView, SearchView.OnQueryTextListener {
 
     private lateinit var topRatePresenter: TopRatedContract.TopRatedPresenter
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.menu_top_rated, menu)
+        val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
+        val searchManager= activity!!.getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView: SearchView? = searchItem?.actionView as SearchView
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        searchView?.setOnQueryTextListener(this)
+        searchView?.queryHint = "Escribe el título"
+        searchView?.isIconified = true
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        (rvTopRatedMovies.adapter as TopRatedAdapter).filter.filter(newText.orEmpty())
+        return true
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

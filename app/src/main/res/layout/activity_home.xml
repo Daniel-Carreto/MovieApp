@@ -6,12 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".home.HomeActivity">
 
-    <fragment
-        android:id="@+id/textView"
+    <FrameLayout
+        android:id="@+id/topRatedFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:name="com.danycarreto.movieapp.home.TopRatedFragment"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarTop" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarTop"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
