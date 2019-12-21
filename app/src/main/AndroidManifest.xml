@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.danycarreto.movieapp">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".MovieAppAplication"
         android:allowBackup="true"
