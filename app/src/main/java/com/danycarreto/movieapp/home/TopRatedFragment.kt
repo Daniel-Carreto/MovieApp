@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.danycarreto.movieapp.R
+import com.danycarreto.movieapp.home.adapter.TopRatedAdapter
 import com.danycarreto.movieapp.home.data.model.TopResults
 import com.danycarreto.movieapp.home.manager.TopRatedManager
 import com.danycarreto.movieapp.home.presenter.TopRatedContract
@@ -17,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_top_rated.*
 class TopRatedFragment : Fragment(),
     TopRatedContract.TopRatedView {
 
-    private lateinit var topRatePresenter:TopRatedContract.TopRatedPresenter
+    private lateinit var topRatePresenter: TopRatedContract.TopRatedPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,15 +46,20 @@ class TopRatedFragment : Fragment(),
     }
 
     override fun showTopRatedMovies(topMovies: List<TopResults>) {
-
+        rvTopRatedMovies.apply {
+            adapter = TopRatedAdapter(topMovies)
+            layoutManager = LinearLayoutManager(activity!!)
+        }
     }
 
     override fun showErrorData(message: String) {
-
+        val dialog = AlertDialog.Builder(activity!!)
+        dialog.setTitle(getString(R.string.app_name))
+        dialog.setMessage(message)
+        dialog.setNeutralButton(getString(R.string.login_neutral_label), null)
+        dialog.create()
+        dialog.show()
     }
-
-
-
 
 
 }
