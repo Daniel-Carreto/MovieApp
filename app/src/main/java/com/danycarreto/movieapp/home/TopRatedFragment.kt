@@ -47,7 +47,7 @@ class TopRatedFragment : Fragment(),
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        (rvTopRatedMovies.adapter as TopRatedAdapter).filter.filter(newText.orEmpty())
+        (rvTopRatedMovies?.adapter as? TopRatedAdapter)?.filter?.filter(newText.orEmpty())
         return true
     }
 
