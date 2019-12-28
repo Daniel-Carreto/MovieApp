@@ -42,7 +42,7 @@ class TopRatedFragment : Fragment(),
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-
+        topRatePresenter.getSearchMovieWithTitle(query.orEmpty())
         return false
     }
 

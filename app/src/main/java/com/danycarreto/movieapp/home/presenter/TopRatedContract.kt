@@ -14,6 +14,7 @@ interface TopRatedContract {
 
     interface TopRatedPresenter{
         fun getRequestTopMovies()
+        fun getSearchMovieWithTitle(title:String)
     }
 
     interface TopRatedData{

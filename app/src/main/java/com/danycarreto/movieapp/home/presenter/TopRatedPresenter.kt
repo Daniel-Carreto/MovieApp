@@ -17,6 +17,11 @@ class TopRatedPresenter(
         topRated.getMoviesTopRated(this)
     }
 
+    override fun getSearchMovieWithTitle(title: String) {
+        topRatedView.showLoading()
+        topRated.getMovieSearch(title, this)
+    }
+
     override fun onSuccesDataResponse(topRatedMovies: List<TopResults>) {
         topRatedView.hideLoading()
         topRatedView.showTopRatedMovies(topRatedMovies)
