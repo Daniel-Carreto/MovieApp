@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.danycarreto.movieapp.R
 import com.danycarreto.movieapp.popular.view.PopularFragment
+import com.danycarreto.movieapp.upcoming.view.UpcomingFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
 
@@ -37,6 +38,14 @@ class HomeActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     .replace(topRatedFragment.id, TopRatedFragment())
                     .commit()
             }
+
+            R.id.action_upcoming -> {
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(topRatedFragment.id, UpcomingFragment())
+                    .commit()
+            }
+
         }
         return false
     }

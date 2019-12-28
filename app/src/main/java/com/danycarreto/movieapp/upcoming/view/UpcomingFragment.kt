@@ -1,4 +1,4 @@
-package com.danycarreto.movieapp.popular.view
+package com.danycarreto.movieapp.upcoming.view
 
 
 import android.os.Bundle
@@ -9,29 +9,36 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import com.danycarreto.movieapp.R
 import com.danycarreto.movieapp.home.adapter.TopRatedAdapter
 import com.danycarreto.movieapp.home.data.model.TopResults
 import com.danycarreto.movieapp.home.manager.TopRatedManager
-import com.danycarreto.movieapp.popular.presenter.PopularContract
-import com.danycarreto.movieapp.popular.presenter.PopularPresenter
+import com.danycarreto.movieapp.upcoming.presenter.UpcomingContract
+import com.danycarreto.movieapp.upcoming.presenter.UpcomingPresenter
 import kotlinx.android.synthetic.main.fragment_popular.*
+import kotlinx.android.synthetic.main.fragment_popular.progressUpcoming
+import kotlinx.android.synthetic.main.fragment_popular.rvUpcoming
+import kotlinx.android.synthetic.main.fragment_upcoming.*
 
+class UpcomingFragment : Fragment(), UpcomingContract.UpcomingView, SwipeRefreshLayout.OnRefreshListener {
 
-class PopularFragment : Fragment(), PopularContract.PopularView {
+    private lateinit var presenter: UpcomingContract.UpcomingPresenter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_popular, container, false)
+        return inflater.inflate(R.layout.fragment_upcoming, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val presenter = PopularPresenter(this, TopRatedManager())
-        presenter.getRequestPopularMovies()
+        swipeUpcoming.setOnRefreshListener(this)
+        presenter = UpcomingPresenter(this, TopRatedManager())
+        presenter.getRequestUpcomingMovies()
     }
 
     override fun showLoading() {
@@ -42,10 +49,11 @@ class PopularFragment : Fragment(), PopularContract.PopularView {
         progressUpcoming.visibility = View.GONE
     }
 
-    override fun loadPopular(list: List<TopResults>) {
+    override fun loadUpcoming(list: List<TopResults>) {
+        swipeUpcoming.isRefreshing = false
         rvUpcoming.apply {
             adapter = TopRatedAdapter(list)
-            layoutManager = GridLayoutManager(activity!!,2, RecyclerView.VERTICAL, false)
+            layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         }
     }
 
@@ -53,6 +61,10 @@ class PopularFragment : Fragment(), PopularContract.PopularView {
         Toast.makeText(activity!!, message, Toast.LENGTH_SHORT).show()
     }
 
+
+    override fun onRefresh() {
+        presenter.getRequestUpcomingMovies()
+    }
 
 
 
