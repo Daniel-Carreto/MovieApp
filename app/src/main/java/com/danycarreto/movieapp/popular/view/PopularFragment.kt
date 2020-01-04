@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.danycarreto.movieapp.R
+import com.danycarreto.movieapp.detail.view.DetailActivity
+import com.danycarreto.movieapp.home.adapter.OnItemClickListener
 import com.danycarreto.movieapp.home.adapter.TopRatedAdapter
 import com.danycarreto.movieapp.home.data.model.TopResults
 import com.danycarreto.movieapp.home.manager.TopRatedManager
@@ -19,7 +21,7 @@ import com.danycarreto.movieapp.popular.presenter.PopularPresenter
 import kotlinx.android.synthetic.main.fragment_popular.*
 
 
-class PopularFragment : Fragment(), PopularContract.PopularView {
+class PopularFragment : Fragment(), PopularContract.PopularView, OnItemClickListener<TopResults> {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +46,7 @@ class PopularFragment : Fragment(), PopularContract.PopularView {
 
     override fun loadPopular(list: List<TopResults>) {
         rvUpcoming.apply {
-            adapter = TopRatedAdapter(list)
+            adapter = TopRatedAdapter(list, this@PopularFragment)
             layoutManager = GridLayoutManager(activity!!,2, RecyclerView.VERTICAL, false)
         }
     }
@@ -54,6 +56,8 @@ class PopularFragment : Fragment(), PopularContract.PopularView {
     }
 
 
-
+    override fun onItemClick(item: TopResults, position: Int) {
+        DetailActivity.lauch(activity!!, item.id.toString())
+    }
 
 }

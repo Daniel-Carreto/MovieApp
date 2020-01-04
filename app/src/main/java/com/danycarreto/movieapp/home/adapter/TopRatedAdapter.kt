@@ -12,7 +12,8 @@ import com.bumptech.glide.Glide
 import com.danycarreto.movieapp.R
 import com.danycarreto.movieapp.home.data.model.TopResults
 
-class TopRatedAdapter(val topRateList:List<TopResults>) :
+class TopRatedAdapter(val topRateList:List<TopResults>,
+                      private val onItemClickListener: OnItemClickListener<TopResults>) :
     RecyclerView.Adapter<TopRatedAdapter.TopViewHolder>(), Filterable{
 
     private var topFilterList: List<TopResults> = topRateList
@@ -52,6 +53,9 @@ class TopRatedAdapter(val topRateList:List<TopResults>) :
     }
 
     override fun onBindViewHolder(holder: TopViewHolder, position: Int) {
+        holder.itemView.setOnClickListener{
+            onItemClickListener.onItemClick(topFilterList[position], position)
+        }
         holder.tvTitle.text = topFilterList[position].title
         holder.tvOverview.text = topFilterList[position].overview
         holder.tvDate.text = topFilterList[position].releaseDate

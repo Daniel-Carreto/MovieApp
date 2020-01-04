@@ -11,6 +11,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.danycarreto.movieapp.R
+import com.danycarreto.movieapp.detail.view.DetailActivity
+import com.danycarreto.movieapp.home.adapter.OnItemClickListener
 import com.danycarreto.movieapp.home.adapter.TopRatedAdapter
 import com.danycarreto.movieapp.home.data.model.TopResults
 import com.danycarreto.movieapp.home.manager.TopRatedManager
@@ -19,7 +21,7 @@ import com.danycarreto.movieapp.home.presenter.TopRatedPresenter
 import kotlinx.android.synthetic.main.fragment_top_rated.*
 
 class TopRatedFragment : Fragment(),
-    TopRatedContract.TopRatedView, SearchView.OnQueryTextListener {
+    TopRatedContract.TopRatedView, SearchView.OnQueryTextListener, OnItemClickListener<TopResults> {
 
     private lateinit var topRatePresenter: TopRatedContract.TopRatedPresenter
 
@@ -77,7 +79,7 @@ class TopRatedFragment : Fragment(),
 
     override fun showTopRatedMovies(topMovies: List<TopResults>) {
         rvTopRatedMovies.apply {
-            adapter = TopRatedAdapter(topMovies)
+            adapter = TopRatedAdapter(topMovies, this@TopRatedFragment)
             layoutManager = LinearLayoutManager(activity!!)
         }
     }
@@ -91,5 +93,7 @@ class TopRatedFragment : Fragment(),
         dialog.show()
     }
 
-
+    override fun onItemClick(item: TopResults, position: Int) {
+        DetailActivity.lauch(activity!!, item.id.toString())
+    }
 }

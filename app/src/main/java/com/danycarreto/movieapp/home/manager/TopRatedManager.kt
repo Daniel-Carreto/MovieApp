@@ -1,5 +1,7 @@
 package com.danycarreto.movieapp.home.manager
 
+import com.danycarreto.movieapp.detail.model.DetailResponse
+import com.danycarreto.movieapp.detail.presenter.DetailContract
 import com.danycarreto.movieapp.home.data.model.RatedResponse
 import com.danycarreto.movieapp.home.data.network.NetworkConnection
 import com.danycarreto.movieapp.home.presenter.TopRatedContract
@@ -86,5 +88,26 @@ class TopRatedManager: TopRated {
                 }
 
             })
+    }
+
+
+    override fun getMovieDetail(id: String, detailData: DetailContract.DetailData) {
+        NetworkConnection()
+            .getNetworkConnection()
+            ?.getDetailMovie("https://api.themoviedb.org/3/movie/{movie_id}?api_key=568ff4df19633325b978ea1b75fe2290&language=en-US".replace("{movie_id}",id))
+            ?.enqueue(object : Callback<DetailResponse> {
+                override fun onFailure(call: Call<DetailResponse>, t: Throwable) {
+                    detailData.onErrorDataResponse(t.message.orEmpty())
+                }
+
+                override fun onResponse(
+                    call: Call<DetailResponse>,
+                    response: Response<DetailResponse>
+                ) {
+                    detailData.onSuccessDataResponse(response.body()!!)
+                }
+
+            })
+
     }
 }

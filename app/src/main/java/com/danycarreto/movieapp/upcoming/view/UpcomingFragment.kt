@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import com.danycarreto.movieapp.R
+import com.danycarreto.movieapp.detail.view.DetailActivity
+import com.danycarreto.movieapp.home.adapter.OnItemClickListener
 import com.danycarreto.movieapp.home.adapter.TopRatedAdapter
 import com.danycarreto.movieapp.home.data.model.TopResults
 import com.danycarreto.movieapp.home.manager.TopRatedManager
@@ -23,7 +25,8 @@ import kotlinx.android.synthetic.main.fragment_popular.progressUpcoming
 import kotlinx.android.synthetic.main.fragment_popular.rvUpcoming
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 
-class UpcomingFragment : Fragment(), UpcomingContract.UpcomingView, SwipeRefreshLayout.OnRefreshListener {
+class UpcomingFragment : Fragment(), UpcomingContract.UpcomingView,
+    SwipeRefreshLayout.OnRefreshListener, OnItemClickListener<TopResults> {
 
     private lateinit var presenter: UpcomingContract.UpcomingPresenter
 
@@ -52,7 +55,7 @@ class UpcomingFragment : Fragment(), UpcomingContract.UpcomingView, SwipeRefresh
     override fun loadUpcoming(list: List<TopResults>) {
         swipeUpcoming.isRefreshing = false
         rvUpcoming.apply {
-            adapter = TopRatedAdapter(list)
+            adapter = TopRatedAdapter(list,this@UpcomingFragment)
             layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         }
     }
@@ -66,6 +69,7 @@ class UpcomingFragment : Fragment(), UpcomingContract.UpcomingView, SwipeRefresh
         presenter.getRequestUpcomingMovies()
     }
 
-
-
+    override fun onItemClick(item: TopResults, position: Int) {
+        DetailActivity.lauch(activity!!, item.id.toString())
+    }
 }
