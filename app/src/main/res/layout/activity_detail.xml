@@ -52,11 +52,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabShare"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="16dp"
+        android:tint="#FFF"
+        app:srcCompat="@android:drawable/ic_menu_share"
+        android:layout_marginBottom="16dp"
+        android:layout_gravity="end|bottom"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,7 +4,9 @@ import com.danycarreto.movieapp.detail.model.DetailResponse
 
 interface DetailContract {
     interface DetailView{
-        fun showDetailData(title:String, overview:String,image:String, homepage:String)
+        fun showDetailData(title:String, overview:String,
+                           image:String, homepage:String,
+                           showShare:Int)
         fun showErrorMessage(message:String)
     }
     interface DetailPresenter{
