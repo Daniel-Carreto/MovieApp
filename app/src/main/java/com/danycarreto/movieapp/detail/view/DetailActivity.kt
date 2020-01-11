@@ -14,10 +14,13 @@ import com.danycarreto.movieapp.R
 import com.danycarreto.movieapp.detail.presenter.DetailContract
 import com.danycarreto.movieapp.detail.presenter.DetailPresenter
 import com.danycarreto.movieapp.home.manager.TopRatedManager
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), DetailContract.DetailView,
     View.OnClickListener {
+
+    private lateinit var presenter:DetailContract.DetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,7 @@ class DetailActivity : AppCompatActivity(), DetailContract.DetailView,
             setDisplayShowHomeEnabled(true)
         }
 
-        val presenter = DetailPresenter(
+        presenter = DetailPresenter(
             this, TopRatedManager()
         )
         presenter.getDetailMovie(intent.getStringExtra("IdMovie"))
@@ -62,7 +65,12 @@ class DetailActivity : AppCompatActivity(), DetailContract.DetailView,
     }
 
     override fun showErrorMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Snackbar.make(
+            coordinatorDetail,message, Snackbar.LENGTH_INDEFINITE
+        ).setAction("Reintentar"){
+            presenter.getDetailMovie(intent.getStringExtra("IdMovie"))
+        }.show()
     }
 
     override fun onClick(v: View?) {
