@@ -13,23 +13,23 @@ class TopRatedPresenter(
     }
 
     override fun getRequestTopMovies() {
-        topRatedView.showLoading()
+        topRatedView?.showLoading()
         topRated.getMoviesTopRated(this)
     }
 
     override fun getSearchMovieWithTitle(title: String) {
-        topRatedView.showLoading()
+        topRatedView?.showLoading()
         topRated.getMovieSearch(title, this)
     }
 
     override fun onSuccesDataResponse(topRatedMovies: List<TopResults>) {
-        topRatedView.hideLoading()
-        topRatedView.showTopRatedMovies(topRatedMovies)
+        topRatedView?.hideLoading()
+        topRatedView?.showTopRatedMovies(topRatedMovies)
     }
 
     override fun onErrorDataResponse(message: String) {
-        topRatedView.hideLoading()
-        topRatedView.showErrorData(message)
+        topRatedView?.hideLoading()
+        topRatedView?.showErrorData(message)
     }
 
 }

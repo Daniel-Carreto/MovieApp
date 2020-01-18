@@ -5,11 +5,10 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.danycarreto.movieapp.R
 import com.danycarreto.movieapp.detail.view.DetailActivity
 import com.danycarreto.movieapp.home.adapter.OnItemClickListener
@@ -70,15 +69,15 @@ class TopRatedFragment : Fragment(),
     }
 
     override fun showLoading() {
-        progressTop.visibility = View.VISIBLE
+        progressTop?.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        progressTop.visibility = View.GONE
+        progressTop?.visibility = View.GONE
     }
 
     override fun showTopRatedMovies(topMovies: List<TopResults>) {
-        rvTopRatedMovies.apply {
+        rvTopRatedMovies?.apply {
             adapter = TopRatedAdapter(topMovies, this@TopRatedFragment)
             layoutManager = LinearLayoutManager(activity!!)
         }

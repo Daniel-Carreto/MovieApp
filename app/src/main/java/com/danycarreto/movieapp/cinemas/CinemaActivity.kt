@@ -1,5 +1,6 @@
 package com.danycarreto.movieapp.cinemas
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -235,6 +236,13 @@ class CinemaActivity : AppCompatActivity(), OnMapReadyCallback,
 
     override fun onProviderDisabled(provider: String?) {
 
+    }
+
+
+    companion object {
+        fun launch(context: Context) {
+            context.startActivity(Intent(context, CinemaActivity::class.java))
+        }
     }
 
 

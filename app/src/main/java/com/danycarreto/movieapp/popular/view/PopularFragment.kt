@@ -2,14 +2,13 @@ package com.danycarreto.movieapp.popular.view
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.danycarreto.movieapp.R
 import com.danycarreto.movieapp.detail.view.DetailActivity
 import com.danycarreto.movieapp.home.adapter.OnItemClickListener
@@ -37,15 +36,15 @@ class PopularFragment : Fragment(), PopularContract.PopularView, OnItemClickList
     }
 
     override fun showLoading() {
-        progressUpcoming.visibility = View.VISIBLE
+        progressUpcoming?.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        progressUpcoming.visibility = View.GONE
+        progressUpcoming?.visibility = View.GONE
     }
 
     override fun loadPopular(list: List<TopResults>) {
-        rvUpcoming.apply {
+        rvUpcoming?.apply {
             adapter = TopRatedAdapter(list, this@PopularFragment)
             layoutManager = GridLayoutManager(activity!!,2, RecyclerView.VERTICAL, false)
         }
